@@ -1,0 +1,33 @@
+
+.all {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    margin: 0 2rem 2rem 0;
+    padding-bottom: 20px;
+    box-shadow: 7px 13px 37px #000;
+    margin-top: 60px;   
+    transition: 0,5s ease-in;
+}
+
+.all:hover {
+    transform: scale(1.1);
+}
+
+.name {
+    font-size: 20px;
+    color: black;
+    margin: 0px;
+}
+.generos {
+    color: black;
+    margin: 0px;
+
+}
+.image {
+    width: 280px;
+    height: 280px;
+    border-radius: 4px;
+}

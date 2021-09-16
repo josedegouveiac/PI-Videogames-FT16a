@@ -9,19 +9,38 @@ const {
 // ------------ LOGIC -------------//
 
 const informationApi = async () => {
+    let all = []
     try {
         const api = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-        const results = await api.data.results.map(el => {
+        const res = await api.data.results;
+
+        const one = await axios.get(api.data.next)
+        const result1 = one.data.results;
+
+        const two = await axios.get(one.data.next)
+        const result2 = two.data.results;
+
+        const tree = await axios.get(two.data.next)
+        const result3 = tree.data.results;
+
+        const four = await axios.get(tree.data.next)
+        const result4 = four.data.results;
+
+        const allResults = [...res, ...result1, ...result2, ...result3, ...result4]
+
+        all = allResults.map(el => {
             return {
-                name: el.name,
                 id: el.id,
+                name: el.name,
+                image: el.background_image,
                 description: el.description,
                 released: el.released,
                 rating: el.rating,
-                platforms: el.platforms.map(el => el.platform.name)
+                platforms: el.platforms.map(el => el.platform.name),
+                generos: el.genres.map(el => el.name)
             }
         })
-        return results
+        return all
 
 
     } catch (error) {
@@ -32,10 +51,12 @@ const informationApi = async () => {
 const informationDB = async () => {
 
     return await Videogame.findAll({
-        include: Genero,
-        attributes: ['name'],
-        through: {
-            attributes: []
+        include: {
+            model: Genero,
+            attributes: ['name'],
+            through: {
+                attributes: []
+            }
         }
     })
 
@@ -47,6 +68,36 @@ const totalInformation = async () => {
     const information = [...api, ...db]
     return information
 }
+
+// const filter = async (id) => {
+//     if (isNaN(id)) {
+//         return await Videogame.findOne({
+//             where: {
+//                 id: id
+//             }, include: {
+//                 model: Genero,
+//                 attributes: ['name'],
+//                 through: {
+//                     attributes: []
+//                 }
+//             }
+
+//         });
+//     } else {
+//         const i = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+//         return {
+//             id: i.data.id,
+//             createdinDb: false,
+//             name: i.data.name,
+//             image: i.data.background_image,
+//             description: i.data.description,
+//             released: i.data.released,
+//             rating: i.data.rating,
+//             platforms: i.data.platforms.map(el => el.platform.name),
+//             generos: i.data.genres.map(el => el.name)
+//         }
+//     }
+// }
 
 // ------------ LOGIC -------------//
 
@@ -81,28 +132,38 @@ router.get('/:id', async (req, res) => {
     }
 
 })
+// if (id) {
+//     res.status(200).send(allgames)
+// } else {
+//     res.status(404).send('Id no Encontrado')
+// }
 
 router.post('/', async (req, res) => {
     let {
         id,
         name,
+        image,
         description,
         released,
         rating,
-        platforms
+        platforms,
+        generos,
+        createdinDb
     } = req.body
 
     const gamecreated = await Videogame.create({
         id,
         name,
+        image,
         description,
         released,
         rating,
-        platforms
+        platforms,
+        createdinDb
     })
 
     let generoDb = await Genero.findAll({
-        where: { name: name }
+        where: { name: generos }
     })
 
     gamecreated.addGenero(generoDb)

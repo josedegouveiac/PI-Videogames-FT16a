@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
             where: { name: el }
         });
     });
+
     const allgeneros = await Genero.findAll()
     res.send(allgeneros)
 })

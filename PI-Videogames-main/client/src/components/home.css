@@ -1,0 +1,78 @@
+.b {
+    background: url(../img/pexels-photo-home-4.jpeg);
+    background-size: cover;
+    min-height:100vh ;
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    padding: 0;
+    margin: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: #cfcfcc;
+    border-bottom: 1px solid black;
+    box-shadow: 1px 1px 7px ;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    padding-left: 2rem;
+    text-transform: uppercase;
+    color: white;
+    cursor: pointer;
+
+}
+.block1 {
+    align-self: center;
+}
+.block1 select {
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+   
+
+.block2 {
+    align-self: center;
+    padding-right: 2rem;
+}
+
+.btn-2 {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Bungee Shade', cursive;
+    padding: 0;
+}
+.btn-2:hover {
+    color: white;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 1000px;
+    margin: 0 auto;
+    
+}
+.link {
+    text-decoration: none;
+}
+
+.busqueda {
+    padding-top: 100px;
+}
+
+.paginado {
+    margin: 0 auto;
+}
+
+
+
