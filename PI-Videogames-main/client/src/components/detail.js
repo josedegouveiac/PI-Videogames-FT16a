@@ -45,9 +45,7 @@ export default function Detail(props) {
                                 detailGame[0].generos + ' ' :
                                 detailGame[0].generos.map(el => el.name).join(' - ')}
                             </h4>
-                            <h4 className="rating">Rating <HiArrowNarrowRight className="arrow" />
-                                {detailGame[0].description}
-                            </h4>
+
 
                         </div>
                     </div>
